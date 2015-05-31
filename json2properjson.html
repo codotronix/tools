@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Feed JSON to proper JSON</title>
+	<style type="text/css">
+		textarea {
+			width: 100%;
+			height: 100px;
+		}
+	</style>
+</head>
+<body>
+<textarea id="ipJSON"></textarea><br/>
+<textarea id="opJSON"></textarea><br/>
+<button id="convert" onclick="convert();">convert</button>
+
+<script type="text/javascript">
+function convert() {
+	var ipJSON = document.getElementById('ipJSON').value;
+	ipJSONarray = JSON.parse(ipJSON);
+	//console.log(ipJSON);
+
+	for (var i=0; i< ipJSONarray.length; i++) {
+		var imgURL = ipJSONarray[i].imageUrls ;
+		ipJSONarray[i].imageUrls = [];
+		ipJSONarray[i].imageUrls[0] = {};
+		ipJSONarray[i].imageUrls[0].url = imgURL;
+
+		ipJSONarray[i].description = "<span class=\"old-price price-cut\"> <i class=\"icon-rupee\"></i>" + ipJSONarray[i].oldPrice + "</span><span class=\"new-price\"> <i class=\"icon-rupee\"></i>" + ipJSONarray[i].newPrice + "</span><span class=\"desc\">" + ipJSONarray[i].description + "</span>";
+	}
+
+	console.log(ipJSONarray);
+
+	document.getElementById('opJSON').value = JSON.stringify(ipJSONarray);
+
+}
+	
+</script>
+</body>
+</html>
